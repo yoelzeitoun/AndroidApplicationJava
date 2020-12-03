@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AndroidApplicationJava</string>
+    <string name="Send_Request">Send Request</string>
+    <string name="MsgInfo">Please enter the following informations about your reservation:</string>
+    <string name="Name">Name</string>
+    <string name="email">email</string>
+    <string name="button1">Add Travel Activity</string>
+    <string name="button2">History Travels Activity</string>
+</resources>
