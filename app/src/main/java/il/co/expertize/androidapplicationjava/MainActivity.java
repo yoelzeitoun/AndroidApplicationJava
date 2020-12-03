@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button button1;
     Button button2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         button1 = (Button)findViewById(R.id.button1);
         button2 =(Button)findViewById(R.id.button1);
+
 
         Intent i=new Intent(this, AddTravelActivity.class);
 
