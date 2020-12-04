@@ -16,7 +16,7 @@ public class TravelViewModel extends AndroidViewModel {
         super(application);
         travelRepository = new TravelRepository(application);
     }
-    public void insertTravel(Travel travel) {
-        travelRepository.insertTravel(travel);
+    public boolean insertTravel(Travel travel) {
+        return travelRepository.insertTravel(travel);
     }
 }

@@ -13,8 +13,8 @@ public class TravelRepository extends Application {
         firebaseDataSource = new TravelFirebaseDataSource();
     }
 
-    public void insertTravel(Travel travel)
+    public boolean insertTravel(Travel travel)
     {
-        firebaseDataSource.insertTravel(travel);
+        return firebaseDataSource.insertTravel(travel);
     }
 }
