@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         button1 = (Button)findViewById(R.id.button1);
         button2 =(Button)findViewById(R.id.button1);
 
-
         Intent i=new Intent(this, AddTravelActivity.class);
 
         button1.setOnClickListener(new View.OnClickListener() {

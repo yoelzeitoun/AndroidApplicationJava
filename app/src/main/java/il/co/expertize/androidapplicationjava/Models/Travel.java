@@ -1,16 +1,16 @@
 package il.co.expertize.androidapplicationjava.Models;
 
 public class Travel {
-        private String travelId = "id";
+        private Integer travelId = 0;
         private String clientName;
         private String clientPhone;
         private String clientEmail;
 
-        public String getTravelId() {
+        public Integer getTravelId() {
             return travelId;
         }
-        public void setTravelId( String travelId) {
-            this.travelId = travelId;
+        public void setTravelId( ) {
+            travelId += 1;
         }
         public String getClientName() {
             return clientName;
@@ -30,5 +30,5 @@ public class Travel {
         public void setClientEmail( String clientEmail) {
             this.clientEmail = clientEmail;
         }
-
     }
+

@@ -1,12 +1,20 @@
 package il.co.expertize.androidapplicationjava.ViewModel;
 
 import android.app.Application;
+import android.content.Context;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import il.co.expertize.androidapplicationjava.Data.TravelRepository;
+import il.co.expertize.androidapplicationjava.MainActivity;
 import il.co.expertize.androidapplicationjava.Models.Travel;
+import il.co.expertize.androidapplicationjava.UI.AddTravelActivity;
+
+import static java.security.AccessController.getContext;
 
 public class TravelViewModel extends AndroidViewModel {
 
@@ -16,7 +24,13 @@ public class TravelViewModel extends AndroidViewModel {
         super(application);
         travelRepository = new TravelRepository(application);
     }
+
     public boolean insertTravel(Travel travel) {
         return travelRepository.insertTravel(travel);
+    }
+
+    public LiveData<Boolean> getTravels()
+    {
+        return travelRepository.getTravels();
     }
 }
