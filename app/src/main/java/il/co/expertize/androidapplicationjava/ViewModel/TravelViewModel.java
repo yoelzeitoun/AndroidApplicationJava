@@ -25,12 +25,12 @@ public class TravelViewModel extends AndroidViewModel {
         travelRepository = new TravelRepository(application);
     }
 
-    public boolean insertTravel(Travel travel) {
-        return travelRepository.insertTravel(travel);
+    public void addTravel(Travel travel) {
+        travelRepository.addTravel(travel);
     }
 
-    public LiveData<Boolean> getTravels()
+    public LiveData<Boolean> getIsSuccess()
     {
-        return travelRepository.getTravels();
+        return travelRepository.getIsSuccess();
     }
 }

@@ -16,13 +16,12 @@ public class TravelRepository extends Application {
         firebaseDataSource = new TravelFirebaseDataSource();
     }
 
-    public boolean insertTravel(Travel travel)
+    public void addTravel(Travel travel)
     {
-        return firebaseDataSource.insertTravel(travel);
+        firebaseDataSource.addTravel(travel);
     }
 
-    public LiveData<Boolean> getTravels() {
-
-        return firebaseDataSource.getTravels();
+    public LiveData<Boolean> getIsSuccess() {
+        return firebaseDataSource.getIsSuccess();
     }
 }

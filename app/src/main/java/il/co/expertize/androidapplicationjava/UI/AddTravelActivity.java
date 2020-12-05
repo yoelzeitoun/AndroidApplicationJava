@@ -33,11 +33,11 @@ public class AddTravelActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email);
         viewModel = new ViewModelProvider(this).get(TravelViewModel.class);
 
-        final LiveData<Boolean> isSuccess = viewModel.getTravels();
+        final LiveData<Boolean> isSuccess = viewModel.getIsSuccess();
         isSuccess.observe(this, new Observer() {
             @Override
             public void onChanged(Object o) {
-                Toast.makeText(AddTravelActivity.this, "TOP", Toast.LENGTH_LONG).show();
+                Toast.makeText(AddTravelActivity.this, "Good Job!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -52,9 +52,7 @@ public class AddTravelActivity extends AppCompatActivity {
             name.setText("");
             travel.setClientEmail(email.getText().toString());
             email.setText("");
-            travel.setTravelId();
-            if (viewModel.insertTravel(travel))
-                Toast.makeText(this, "TOP", Toast.LENGTH_LONG).show();
+            viewModel.addTravel(travel);
         }
     }
 }
