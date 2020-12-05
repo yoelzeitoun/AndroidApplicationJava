@@ -34,12 +34,7 @@ public class AddTravelActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(TravelViewModel.class);
 
         final LiveData<Boolean> isSuccess = viewModel.getIsSuccess();
-        isSuccess.observe(this, new Observer() {
-            @Override
-            public void onChanged(Object o) {
-                Toast.makeText(AddTravelActivity.this, "Good Job!", Toast.LENGTH_LONG).show();
-            }
-        });
+        isSuccess.observe(this, (Observer) o -> Toast.makeText(AddTravelActivity.this, "Good Job!", Toast.LENGTH_LONG).show());
     }
 
 
