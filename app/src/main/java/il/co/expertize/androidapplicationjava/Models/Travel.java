@@ -1,10 +1,10 @@
 package il.co.expertize.androidapplicationjava.Models;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class Travel {
 
@@ -44,16 +44,16 @@ public class Travel {
     }
 
 
-    @TypeConverters(UserLocationConverter.class)
+    //@TypeConverters(UserLocationConverter.class)
     private UserLocation travelLocation;
 
-    @TypeConverters(RequestType.class)
+    //@TypeConverters(RequestType.class)
     private RequestType requesType;
 
-    @TypeConverters(DateConverter.class)
+    //@TypeConverters(DateConverter.class)
     private Date travelDate;
 
-    @TypeConverters(DateConverter.class)
+    //@TypeConverters(DateConverter.class)
     private Date arrivalDate;
 
 
@@ -71,12 +71,12 @@ public class Travel {
     public static class DateConverter {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-        @TypeConverter
+        //@TypeConverter
         public Date fromTimestamp(String date) throws ParseException {
             return (date == null ? null : format.parse(date));
         }
 
-        @TypeConverter
+        //@TypeConverter
         public String dateToTimestamp(Date date) {
             return date == null ? null : format.format(date);
         }
@@ -93,14 +93,14 @@ public class Travel {
         public Integer getCode() {
             return code;
         }
-        @TypeConverter
+        //@TypeConverter
         public static RequestType getType(Integer numeral) {
             for (RequestType ds : values())
                 if (ds.code.equals(numeral))
                     return ds;
             return null;
         }
-        @TypeConverter
+        //@TypeConverter
         public static Integer getTypeInt(RequestType requestType) {
             if (requestType != null)
                 return requestType.code;
@@ -112,7 +112,7 @@ public class Travel {
 
 
     public static class CompanyConverter {
-        @TypeConverter
+        //@TypeConverter
         public HashMap<String, Boolean> fromString(String value) {
             if (value == null || value.isEmpty())
                 return null;
@@ -141,7 +141,7 @@ public class Travel {
     }
 
     public static class UserLocationConverter {
-        @TypeConverter
+        //@TypeConverter
         public UserLocation fromString(String value) {
             if (value == null || value.equals(""))
                 return null;
@@ -150,7 +150,7 @@ public class Travel {
             return new UserLocation(lat, lang);
         }
 
-        @TypeConverter
+        //@TypeConverter
         public String asString(UserLocation warehouseUserLocation) {
             return warehouseUserLocation == null ? "" : warehouseUserLocation.getLat() + " " + warehouseUserLocation.getLon();
         }
