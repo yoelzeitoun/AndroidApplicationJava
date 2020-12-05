@@ -9,12 +9,9 @@ import androidx.lifecycle.MutableLiveData;
 import il.co.expertize.androidapplicationjava.Models.Travel;
 
 public class TravelRepository extends Application {
-    TravelFirebaseDataSource firebaseDataSource = null;
+    TravelFirebaseDataSource firebaseDataSource = TravelFirebaseDataSource.getInstance();
     public  TravelRepository(){}
-    public  TravelRepository(Context app)
-    {
-        firebaseDataSource = new TravelFirebaseDataSource();
-    }
+    public  TravelRepository(Context app)   {}
 
     public void addTravel(Travel travel)
     {
