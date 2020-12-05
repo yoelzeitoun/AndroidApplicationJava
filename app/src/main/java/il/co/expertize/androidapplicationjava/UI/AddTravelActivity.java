@@ -39,12 +39,9 @@ public class AddTravelActivity extends AppCompatActivity {
         isSuccess.observe(this, new Observer() {
             @Override
             public void onChanged(Object o) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Good Job!!",
-                        Toast.LENGTH_SHORT);
-                TextView toastMessage = (TextView) toast.getView().findViewById(android.R.id.message);
-                toastMessage.setTextColor(Color.GREEN);
-                toast.show();
-                //Toast.makeText(AddTravelActivity.this, "Good Job!", Toast.LENGTH_LONG).setTextColor(Color.RED).show();
+                if (isSuccess.getValue())
+                    PrintColorToast("Good Job My friend!!", Color.GREEN);
+                else PrintColorToast("Data not entered properly", Color.RED);
             }
         });
     }
@@ -53,11 +50,7 @@ public class AddTravelActivity extends AppCompatActivity {
     public void SendRequest(View view) {
         if (name.getText().toString().isEmpty() || email.getText().toString().isEmpty())
         {
-            Toast toast = Toast.makeText(getApplicationContext(), "Please fill all the informations",
-                    Toast.LENGTH_SHORT);
-            TextView toastMessage = (TextView) toast.getView().findViewById(android.R.id.message);
-            toastMessage.setTextColor(Color.RED);
-            toast.show();
+            PrintColorToast("Please fill all the informations",Color.RED);
         }
             //Toast.makeText(this, "", Toast.LENGTH_LONG).show();
         else {
@@ -68,5 +61,18 @@ public class AddTravelActivity extends AppCompatActivity {
             email.setText("");
             viewModel.addTravel(travel);
         }
+    }
+
+    /**
+     * Function that prints a toast message with entered color
+     * @param msg the message we want to print
+     * @param color the color of the message
+     */
+    public void PrintColorToast(String msg, Integer color)
+    {
+        Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
+        TextView toastMessage = (TextView) toast.getView().findViewById(android.R.id.message);
+        toastMessage.setTextColor(color);
+        toast.show();
     }
 }

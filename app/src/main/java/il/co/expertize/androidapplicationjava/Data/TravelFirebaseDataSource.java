@@ -50,8 +50,6 @@ public class TravelFirebaseDataSource {
             public void onSuccess(Void aVoid) {
                 isSuccess.setValue(true);
             }
-
-
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
