@@ -1,8 +1,10 @@
 package il.co.expertize.androidapplicationjava.Models;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -13,8 +15,64 @@ public class Travel {
     private String clientPhone;
     private String clientEmail;
 
+    //@TypeConverters(UserLocationConverter.class)
+    private UserLocation travelLocation;
+
+    //@TypeConverters(RequestType.class)
+    private RequestType requesType;
+
+    //@TypeConverters(DateConverter.class)
+    private Date departure_date;
+
+    //@TypeConverters(DateConverter.class)
+    private Date return_date;
+
+
+    private HashMap<String, Boolean> company;
+
+
     public String getTravelId() {
         return travelId;
+    }
+
+    public UserLocation getTravelLocation() {
+        return travelLocation;
+    }
+
+    public void setTravelLocation(UserLocation travelLocation) {
+        this.travelLocation = travelLocation;
+    }
+
+    public RequestType getRequesType() {
+        return requesType;
+    }
+
+    public void setRequesType(RequestType requesType) {
+        this.requesType = requesType;
+    }
+
+    public Date getTravelDate() {
+        return departure_date;
+    }
+
+    public void setTravelDate(Date travelDate) {
+        this.departure_date = travelDate;
+    }
+
+    public Date getReturn_date() {
+        return return_date;
+    }
+
+    public void setReturn_date(Date return_date) {
+        this.return_date = return_date;
+    }
+
+    public HashMap<String, Boolean> getCompany() {
+        return company;
+    }
+
+    public void setCompany(HashMap<String, Boolean> company) {
+        this.company = company;
     }
 
     public void setTravelId(String travelId) { this.travelId = travelId;}
@@ -44,20 +102,6 @@ public class Travel {
     }
 
 
-    //@TypeConverters(UserLocationConverter.class)
-    private UserLocation travelLocation;
-
-    //@TypeConverters(RequestType.class)
-    private RequestType requesType;
-
-    //@TypeConverters(DateConverter.class)
-    private Date travelDate;
-
-    //@TypeConverters(DateConverter.class)
-    private Date arrivalDate;
-
-
-    private HashMap<String, Boolean> company;
 
 
 
@@ -67,9 +111,8 @@ public class Travel {
 
 
 
-
     public static class DateConverter {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
 
         //@TypeConverter
         public Date fromTimestamp(String date) throws ParseException {
