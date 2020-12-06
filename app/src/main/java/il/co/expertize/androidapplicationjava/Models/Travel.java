@@ -17,10 +17,9 @@ public class Travel {
     private String numberOfPassenger;
 
     //@TypeConverters(UserLocationConverter.class)
-    private UserLocation travelLocation;
+    private UserLocation travelDepartureLocation;
     private String departure_address;
     private String destination_address;
-
     public String getDeparture_address() {
         return departure_address;
     }
@@ -56,12 +55,12 @@ public class Travel {
 
     public void setTravelId(String travelId) { this.travelId = travelId;}
 
-    public UserLocation getTravelLocation() {
-        return travelLocation;
+    public UserLocation getTravelDepartureLocation() {
+        return travelDepartureLocation;
     }
 
-    public void setTravelLocation(UserLocation travelLocation) {
-        this.travelLocation = travelLocation;
+    public void setTravelDepartureLocation(UserLocation travelLocation) {
+        this.travelDepartureLocation = travelLocation;
     }
 
     public RequestType getRequesType() {
@@ -200,7 +199,7 @@ public class Travel {
 
     public static class UserLocationConverter {
         //@TypeConverter
-        public UserLocation fromString(String value) {
+        public static UserLocation UserLocationFromString(String value) {
             if (value == null || value.equals(""))
                 return null;
             double lat = Double.parseDouble(value.split(" ")[0]);
@@ -209,7 +208,7 @@ public class Travel {
         }
 
         //@TypeConverter
-        public String asString(UserLocation warehouseUserLocation) {
+        public static String UserLocationAsString(UserLocation warehouseUserLocation) {
             return warehouseUserLocation == null ? "" : warehouseUserLocation.getLat() + " " + warehouseUserLocation.getLon();
         }
     }

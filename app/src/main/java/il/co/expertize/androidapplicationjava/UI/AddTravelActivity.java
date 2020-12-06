@@ -1,6 +1,9 @@
 package il.co.expertize.androidapplicationjava.UI;
 
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,12 +15,15 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import il.co.expertize.androidapplicationjava.Models.Travel;
 import il.co.expertize.androidapplicationjava.R;
 import il.co.expertize.androidapplicationjava.ViewModel.TravelViewModel;
 
+import static il.co.expertize.androidapplicationjava.Models.UserLocation.convertFromLocation;
 import static il.co.expertize.androidapplicationjava.Utils.Utils.PrintColorToast;
 import static il.co.expertize.androidapplicationjava.Utils.Utils.isNumeric;
 
@@ -86,13 +92,32 @@ public class AddTravelActivity extends AppCompatActivity {
             phone_number.setText("");
             travel.setNumberOfPassenger(number_of_passengers.getText().toString());
             number_of_passengers.setText("");
-            travel.setDeparture_address(departure_address.getText().toString());
-            departure_address.setText("");
             travel.setDestination_address(destination_address.getText().toString());
             destination_address.setText("");
             travel.setDeparture_date(departureDate);
             travel.setReturn_date(returnDate);
+            travel.setTravelDepartureLocation(convertFromLocation(makeLocation(departure_address.getText().toString())));
+            departure_address.setText("");
             viewModel.addTravel(travel);
         }
+    }
+
+    public Location makeLocation(String address)
+    {
+        Geocoder geocoder = new Geocoder(this);
+        Location travelLocation= new Location("travelLocation");
+        try {
+            List<Address> list = geocoder.getFromLocationName(address, 1);
+            if (!list.isEmpty()) {
+                Address temp = list.get(0);
+                travelLocation.setLatitude(temp.getLatitude());
+                travelLocation.setLongitude(temp.getLongitude());
+            } else {
+                PrintColorToast(getApplicationContext(),"Unable to understand address",Color.RED);
+            }
+        } catch (IOException e) {
+            PrintColorToast(getApplicationContext(),"Unable to understand address. Check Internet connection.",Color.RED);
+        }
+        return travelLocation;
     }
 }

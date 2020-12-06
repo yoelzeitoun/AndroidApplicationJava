@@ -22,7 +22,7 @@ public class UserLocation {
     public UserLocation() {
     }
 
-    public UserLocation convertFromLocation(Location location){
+    public static UserLocation convertFromLocation(Location location){
         if (location==null)
             return null;
         return new UserLocation(location.getLatitude(),location.getLongitude());
