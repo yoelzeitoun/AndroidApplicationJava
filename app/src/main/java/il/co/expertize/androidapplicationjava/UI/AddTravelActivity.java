@@ -74,7 +74,7 @@ public class AddTravelActivity extends AppCompatActivity {
         else if (!isNumeric(phone_number.getText().toString())||!isNumeric(number_of_passengers.getText().toString()))
             PrintColorToast(getApplicationContext(),"Please enter Numbers",Color.RED);
 
-        else if(returnDate.before(departureDate)||returnDate.equals(departureDate))
+        else if(returnDate.before(departureDate))
             PrintColorToast(getApplicationContext(),"Please enter return date later than the departure date",Color.RED);
         else {
             Travel travel = new Travel();
