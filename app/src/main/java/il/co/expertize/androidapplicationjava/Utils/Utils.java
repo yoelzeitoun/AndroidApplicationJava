@@ -1,4 +1,4 @@
-package il.co.expertize.androidapplicationjava.Data.Utils;
+package il.co.expertize.androidapplicationjava.Utils;
 
 import android.content.Context;
 import android.widget.TextView;

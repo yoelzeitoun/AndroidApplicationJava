@@ -18,8 +18,8 @@ import il.co.expertize.androidapplicationjava.Models.Travel;
 import il.co.expertize.androidapplicationjava.R;
 import il.co.expertize.androidapplicationjava.ViewModel.TravelViewModel;
 
-import static il.co.expertize.androidapplicationjava.Data.Utils.Utils.PrintColorToast;
-import static il.co.expertize.androidapplicationjava.Data.Utils.Utils.isNumeric;
+import static il.co.expertize.androidapplicationjava.Utils.Utils.PrintColorToast;
+import static il.co.expertize.androidapplicationjava.Utils.Utils.isNumeric;
 
 
 public class AddTravelActivity extends AppCompatActivity {
