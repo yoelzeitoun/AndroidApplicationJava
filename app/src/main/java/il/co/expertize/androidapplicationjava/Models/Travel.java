@@ -14,9 +14,28 @@ public class Travel {
     private String clientName;
     private String clientPhone;
     private String clientEmail;
+    private String numberOfPassenger;
 
     //@TypeConverters(UserLocationConverter.class)
     private UserLocation travelLocation;
+    private String departure_address;
+    private String destination_address;
+
+    public String getDeparture_address() {
+        return departure_address;
+    }
+
+    public void setDeparture_address(String departure_address) {
+        this.departure_address = departure_address;
+    }
+
+    public String getDestination_address() {
+        return destination_address;
+    }
+
+    public void setDestination_address(String destination_address) {
+        this.destination_address = destination_address;
+    }
 
     //@TypeConverters(RequestType.class)
     private RequestType requesType;
@@ -35,6 +54,8 @@ public class Travel {
         return travelId;
     }
 
+    public void setTravelId(String travelId) { this.travelId = travelId;}
+
     public UserLocation getTravelLocation() {
         return travelLocation;
     }
@@ -51,11 +72,11 @@ public class Travel {
         this.requesType = requesType;
     }
 
-    public Date getTravelDate() {
+    public Date getDeparture_date() {
         return departure_date;
     }
 
-    public void setTravelDate(Date travelDate) {
+    public void setDeparture_date(Date travelDate) {
         this.departure_date = travelDate;
     }
 
@@ -74,8 +95,6 @@ public class Travel {
     public void setCompany(HashMap<String, Boolean> company) {
         this.company = company;
     }
-
-    public void setTravelId(String travelId) { this.travelId = travelId;}
 
     public String getClientName() {
         return clientName;
@@ -101,14 +120,15 @@ public class Travel {
         this.clientEmail = clientEmail;
     }
 
-
-
-
+    public String getNumberOfPassenger() {
+        return numberOfPassenger;
+    }
+    public void setNumberOfPassenger(String numberOfPassenger) {
+        this.numberOfPassenger = numberOfPassenger;
+    }
 
     public Travel() {
     }
-
-
 
 
     public static class DateConverter {
@@ -124,8 +144,6 @@ public class Travel {
             return date == null ? null : format.format(date);
         }
     }
-
-
 
     public enum RequestType {
         sent(0), accepted(1), run(2), close(3);
@@ -150,9 +168,6 @@ public class Travel {
             return null;
         }
     }
-
-
-
 
     public static class CompanyConverter {
         //@TypeConverter

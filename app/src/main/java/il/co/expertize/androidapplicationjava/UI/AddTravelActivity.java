@@ -6,17 +6,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.Date;
+
 import il.co.expertize.androidapplicationjava.Models.Travel;
 import il.co.expertize.androidapplicationjava.R;
 import il.co.expertize.androidapplicationjava.ViewModel.TravelViewModel;
+
+import static il.co.expertize.androidapplicationjava.Data.Utils.Utils.PrintColorToast;
+import static il.co.expertize.androidapplicationjava.Data.Utils.Utils.isNumeric;
+
 
 public class AddTravelActivity extends AppCompatActivity {
     Button button;
@@ -30,7 +34,6 @@ public class AddTravelActivity extends AppCompatActivity {
     DatePicker return_date;
 
     private TravelViewModel viewModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,19 +56,26 @@ public class AddTravelActivity extends AppCompatActivity {
             @Override
             public void onChanged(Object o) {
                 if (isSuccess.getValue())
-                    PrintColorToast("Good Job My friend!!", Color.GREEN);
-                else PrintColorToast("Data not entered properly", Color.RED);
+                    PrintColorToast(getApplicationContext(),"Good Job My friend!!", Color.GREEN);
+                else PrintColorToast(getApplicationContext(),"Data not entered properly", Color.RED);
             }
         });
     }
 
-
     public void SendRequest(View view) {
-        if (name.getText().toString().isEmpty() || email.getText().toString().isEmpty())
+        Date departureDate = new Date(departure_date.getYear(),departure_date.getMonth(),departure_date.getDayOfMonth());
+        Date returnDate = new Date(return_date.getYear(),return_date.getMonth(),return_date.getDayOfMonth());
+        if (name.getText().toString().isEmpty() || email.getText().toString().isEmpty() ||
+        phone_number.getText().toString().isEmpty() || number_of_passengers.getText().toString().isEmpty()||
+        departure_address.getText().toString().isEmpty()|| destination_address.getText().toString().isEmpty())
         {
-            PrintColorToast("Please fill all the information",Color.RED);
+            PrintColorToast(getApplicationContext(),"Please fill all the information",Color.RED);
         }
-            //Toast.makeText(this, "", Toast.LENGTH_LONG).show();
+        else if (!isNumeric(phone_number.getText().toString())||!isNumeric(number_of_passengers.getText().toString()))
+            PrintColorToast(getApplicationContext(),"Please enter Numbers",Color.RED);
+
+        else if(returnDate.before(departureDate)||returnDate.equals(departureDate))
+            PrintColorToast(getApplicationContext(),"Please enter return date later than the departure date",Color.RED);
         else {
             Travel travel = new Travel();
             travel.setClientName(name.getText().toString());
@@ -74,23 +84,15 @@ public class AddTravelActivity extends AppCompatActivity {
             email.setText("");
             travel.setClientPhone(phone_number.getText().toString());
             phone_number.setText("");
-            travel.setReturn_date(departure_date);
-
-
+            travel.setNumberOfPassenger(number_of_passengers.getText().toString());
+            number_of_passengers.setText("");
+            travel.setDeparture_address(departure_address.getText().toString());
+            departure_address.setText("");
+            travel.setDestination_address(destination_address.getText().toString());
+            destination_address.setText("");
+            travel.setDeparture_date(departureDate);
+            travel.setReturn_date(returnDate);
             viewModel.addTravel(travel);
         }
-    }
-
-    /**
-     * Function that prints a toast message with entered color
-     * @param msg the message we want to print
-     * @param color the color of the message
-     */
-    public void PrintColorToast(String msg, Integer color)
-    {
-        Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
-        TextView toastMessage = (TextView) toast.getView().findViewById(android.R.id.message);
-        toastMessage.setTextColor(color);
-        toast.show();
     }
 }
