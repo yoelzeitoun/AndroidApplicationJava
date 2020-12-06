@@ -23,6 +23,7 @@ import il.co.expertize.androidapplicationjava.Models.Travel;
 import il.co.expertize.androidapplicationjava.R;
 import il.co.expertize.androidapplicationjava.ViewModel.TravelViewModel;
 
+import static il.co.expertize.androidapplicationjava.Models.Travel.CompanyConverter.CreateHashMapfromString;
 import static il.co.expertize.androidapplicationjava.Models.UserLocation.convertFromLocation;
 import static il.co.expertize.androidapplicationjava.Utils.Utils.PrintColorToast;
 import static il.co.expertize.androidapplicationjava.Utils.Utils.isNumeric;
@@ -61,8 +62,15 @@ public class AddTravelActivity extends AppCompatActivity {
         isSuccess.observe(this, new Observer() {
             @Override
             public void onChanged(Object o) {
-                if (isSuccess.getValue())
-                    PrintColorToast(getApplicationContext(),"Good Job My friend!!", Color.GREEN);
+                if (isSuccess.getValue()) {
+                    PrintColorToast(getApplicationContext(), "Good Job My friend!!", Color.GREEN);
+                    name.setText("");
+                    email.setText("");
+                    phone_number.setText("");
+                    number_of_passengers.setText("");
+                    destination_address.setText("");
+                    departure_address.setText("");
+                }
                 else PrintColorToast(getApplicationContext(),"Data not entered properly", Color.RED);
             }
         });
@@ -85,19 +93,15 @@ public class AddTravelActivity extends AppCompatActivity {
         else {
             Travel travel = new Travel();
             travel.setClientName(name.getText().toString());
-            name.setText("");
             travel.setClientEmail(email.getText().toString());
-            email.setText("");
             travel.setClientPhone(phone_number.getText().toString());
-            phone_number.setText("");
             travel.setNumberOfPassenger(number_of_passengers.getText().toString());
-            number_of_passengers.setText("");
             travel.setDestination_address(destination_address.getText().toString());
-            destination_address.setText("");
             travel.setDeparture_date(departureDate);
             travel.setReturn_date(returnDate);
             travel.setTravelDepartureLocation(convertFromLocation(makeLocation(departure_address.getText().toString())));
-            departure_address.setText("");
+            travel.setRequesType(Travel.RequestType.sent);
+            travel.setCompany(CreateHashMapfromString("NO:false"));
             viewModel.addTravel(travel);
         }
     }

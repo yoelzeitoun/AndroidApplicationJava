@@ -1,5 +1,7 @@
 package il.co.expertize.androidapplicationjava.Models;
 
+import androidx.annotation.NonNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,129 +17,101 @@ public class Travel {
     private String clientPhone;
     private String clientEmail;
     private String numberOfPassenger;
-
+    private HashMap<String, Boolean> company;
     //@TypeConverters(UserLocationConverter.class)
     private UserLocation travelDepartureLocation;
     private String departure_address;
     private String destination_address;
-    public String getDeparture_address() {
-        return departure_address;
-    }
-
-    public void setDeparture_address(String departure_address) {
-        this.departure_address = departure_address;
-    }
-
-    public String getDestination_address() {
-        return destination_address;
-    }
-
-    public void setDestination_address(String destination_address) {
-        this.destination_address = destination_address;
-    }
-
     //@TypeConverters(RequestType.class)
-    private RequestType requesType;
-
+    private static RequestType request_type;
     //@TypeConverters(DateConverter.class)
     private Date departure_date;
-
     //@TypeConverters(DateConverter.class)
     private Date return_date;
 
 
-    private HashMap<String, Boolean> company;
-
-
+// region getters and setters
+    public String getDeparture_address() {
+        return departure_address;
+    }
+    public void setDeparture_address(String departure_address) {
+        this.departure_address = departure_address;
+    }
+    public String getDestination_address() {
+        return destination_address;
+    }
+    public void setDestination_address(String destination_address) {
+        this.destination_address = destination_address;
+    }
     public String getTravelId() {
         return travelId;
     }
-
     public void setTravelId(String travelId) { this.travelId = travelId;}
-
     public UserLocation getTravelDepartureLocation() {
         return travelDepartureLocation;
     }
-
     public void setTravelDepartureLocation(UserLocation travelLocation) {
         this.travelDepartureLocation = travelLocation;
     }
-
     public RequestType getRequesType() {
-        return requesType;
+        return request_type;
     }
-
     public void setRequesType(RequestType requesType) {
-        this.requesType = requesType;
+        this.request_type = requesType;
     }
-
     public Date getDeparture_date() {
         return departure_date;
     }
-
     public void setDeparture_date(Date travelDate) {
         this.departure_date = travelDate;
     }
-
     public Date getReturn_date() {
         return return_date;
     }
-
     public void setReturn_date(Date return_date) {
         this.return_date = return_date;
     }
-
     public HashMap<String, Boolean> getCompany() {
         return company;
     }
-
     public void setCompany(HashMap<String, Boolean> company) {
         this.company = company;
     }
-
     public String getClientName() {
         return clientName;
     }
-
     public void setClientName(String clientName) {
         this.clientName = clientName;
     }
-
     public String getClientPhone() {
         return clientPhone;
     }
-
     public void setClientPhone(String clientPhone) {
         this.clientPhone = clientPhone;
     }
-
     public String getClientEmail() {
         return clientEmail;
     }
-
     public void setClientEmail(String clientEmail) {
         this.clientEmail = clientEmail;
     }
-
     public String getNumberOfPassenger() {
         return numberOfPassenger;
     }
     public void setNumberOfPassenger(String numberOfPassenger) {
         this.numberOfPassenger = numberOfPassenger;
     }
+    // endregion
 
-    public Travel() {
-    }
 
+    public Travel() {}
 
     public static class DateConverter {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE);
-
         //@TypeConverter
         public Date fromTimestamp(String date) throws ParseException {
             return (date == null ? null : format.parse(date));
         }
-
         //@TypeConverter
         public String dateToTimestamp(Date date) {
             return date == null ? null : format.format(date);
@@ -145,14 +119,10 @@ public class Travel {
     }
 
     public enum RequestType {
-        sent(0), accepted(1), run(2), close(3);
+        sent(0), accepted(1), run(2), close(3), paid(4);
         private final Integer code;
-        RequestType(Integer value) {
-            this.code = value;
-        }
-        public Integer getCode() {
-            return code;
-        }
+        RequestType(Integer value) {this.code = value;}
+        public Integer getCode() {return code;}
         //@TypeConverter
         public static RequestType getType(Integer numeral) {
             for (RequestType ds : values())
@@ -166,11 +136,18 @@ public class Travel {
                 return requestType.code;
             return null;
         }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return request_type.toString();
+        }
     }
 
     public static class CompanyConverter {
         //@TypeConverter
-        public HashMap<String, Boolean> fromString(String value) {
+        public static HashMap<String, Boolean> CreateHashMapfromString(String value)
+        {
             if (value == null || value.isEmpty())
                 return null;
             String[] mapString = value.split(","); //split map into array of (string,boolean) strings
